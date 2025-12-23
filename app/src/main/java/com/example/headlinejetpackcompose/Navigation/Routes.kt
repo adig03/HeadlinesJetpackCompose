@@ -7,4 +7,6 @@ object Routes {
     const val SplashScreen = "SPLASH"
 
     const val HomeScreen = "HOME"
+
+    const val OnboardingScreen = "ONBOARDING"
 }
