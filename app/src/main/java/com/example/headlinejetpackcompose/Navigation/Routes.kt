@@ -9,4 +9,6 @@ object Routes {
     const val HomeScreen = "HOME"
 
     const val OnboardingScreen = "ONBOARDING"
+
+    const val SearchScreen = "SEARCH"
 }

@@ -1,4 +1,4 @@
-package com.example.headlinejetpackcompose.ui
+package com.example.headlinejetpackcompose.presentation.splashScreen
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
@@ -10,15 +10,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.headlinejetpackcompose.Navigation.Routes
 import com.example.headlinejetpackcompose.R
+import com.example.headlinejetpackcompose.SplashViewModel
 import kotlinx.coroutines.delay
 
 @Composable
@@ -27,6 +28,8 @@ fun SplashScreen(navController: NavHostController) {
     var scale = remember {
         Animatable(0f)
     }
+
+    val viewModel = hiltViewModel<SplashViewModel>()
 
     LaunchedEffect(key1 = true){
 
@@ -40,7 +43,7 @@ fun SplashScreen(navController: NavHostController) {
             )
         )
         delay(3000L)
-        navController.navigate(Routes.OnboardingScreen)
+        navController.navigate(Routes.SearchScreen)
 
 
     }
@@ -48,6 +51,10 @@ fun SplashScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
 
-        Image(painter = painterResource(id = R.drawable.applogo) , contentDescription = "Splash Screen" , modifier = Modifier.size(150.dp))
+        Image(painter = painterResource(id = R.drawable.newapplogo) ,
+            contentDescription = "Splash Screen" ,
+            modifier = Modifier.size(150.dp),
+            contentScale = ContentScale.Crop
+        )
     }
 }
