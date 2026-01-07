@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.headlinejetpackcompose.Navigation.Routes
 import com.example.headlinejetpackcompose.models.Page
 import com.example.headlinejetpackcompose.models.pages
 import kotlinx.coroutines.launch
@@ -64,7 +65,7 @@ fun OnboardingScreen(
 
                     viewModel.onEvent(OnboardingEvent.SaveAppEntry)
 
-                    navController.navigate("home") {
+                    navController.navigate(Routes.NewsNavigator) {
                         popUpTo("onboarding") {
                             inclusive = true
                         }
