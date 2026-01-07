@@ -1,12 +1,6 @@
 package com.example.headlinejetpackcompose.presentation.home
 
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,73 +10,57 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.headlinejetpackcompose.Navigation.Routes
 import com.example.headlinejetpackcompose.R
+import com.example.headlinejetpackcompose.domain.model.Article
 import com.example.headlinejetpackcompose.presentation.Dimens.DefaultPadding
 import com.example.headlinejetpackcompose.presentation.Dimens.MediumPadding1
 import com.example.headlinejetpackcompose.presentation.common.ArticleList
 import com.example.headlinejetpackcompose.presentation.common.SelfMadeSearchBar
-import okhttp3.Route
 
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
-
-    val viewModel  = hiltViewModel<HomeViewModel>()
-    val articles = viewModel.news.collectAsLazyPagingItems()
-
+fun HomeScreen(
+    articles: LazyPagingItems<Article>,
+    navigateToDetails: (Article) -> Unit,
+    navigateToSearch: () -> Unit
+) {
 
     // 'titles' will automatically update when paging data changes
-    val titles by remember {
-
-        // derivedStateOf recalculates ONLY when its dependencies change
-        // (here: articles.itemCount / snapshot list)
+    val titles by remember(articles) {
         derivedStateOf {
-
-            // Check if we have more than 10 loaded articles
             if (articles.itemCount > 10) {
-
-                // Get currently loaded items from Paging
                 articles.itemSnapshotList.items
-
-                    // Take only the first 10 articles (index 0 to 9)
-                    .slice(IntRange(start = 0, endInclusive = 9))
-
-                    // Join all titles into a single string
-                    // Each title is separated by a red square emoji 🟥
-                    .joinToString(separator = " \uD83D\uDFE5 ") { it.title }
-
-            } else {
-                // If fewer than 10 articles are loaded,
-                // return an empty string to avoid errors
-                ""
-            }
+                    .take(10)
+                    .joinToString(separator = " \uD83D\uDFE5 ") {
+                        it.title.orEmpty()
+                    }
+            } else ""
         }
     }
-
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = MediumPadding1)
             .statusBarsPadding()
+            .padding(top = MediumPadding1)
     ) {
+
         Image(
             painter = painterResource(id = R.drawable.newapplogo),
             contentDescription = null,
@@ -103,19 +81,19 @@ fun HomeScreen(navController: NavHostController) {
             readOnly = true,
             onValueChange = {},
             onSearch = {},
-            onClick = {
-                navController.navigate(Routes.SearchScreen)
-            }
+            onClick = navigateToSearch
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
         Text(
-            text = titles, modifier = Modifier
+            text = titles,
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = MediumPadding1)
-                .basicMarquee(), fontSize = 12.sp,
-            color = colorResource(id = R.color.placeholder)
+                .basicMarquee(),
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
@@ -123,23 +101,10 @@ fun HomeScreen(navController: NavHostController) {
         ArticleList(
             modifier = Modifier.padding(horizontal = DefaultPadding),
             articles = articles,
-            onClick = {
-
-            }
+            onClick = navigateToDetails
         )
     }
-
-
-
-
-
 }
-
-
-
-
-
-
 
 
 

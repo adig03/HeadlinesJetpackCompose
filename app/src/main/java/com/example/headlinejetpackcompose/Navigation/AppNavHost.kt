@@ -5,12 +5,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.headlinejetpackcompose.presentation.Search.SearchScreen
-import com.example.headlinejetpackcompose.presentation.Search.SearchState
-import com.example.headlinejetpackcompose.presentation.Search.SearchViewModel
-import com.example.headlinejetpackcompose.presentation.home.HomeScreen
+import com.example.headlinejetpackcompose.Navigation.Routes.NewsNavigator
+import com.example.headlinejetpackcompose.presentation.navigation.AppNavigator
 import com.example.headlinejetpackcompose.presentation.onboardingScreen.OnboardingScreen
 import com.example.headlinejetpackcompose.presentation.splashScreen.SplashScreen
+import com.example.headlinejetpackcompose.presentation.splashScreen.SplashViewModel
 
 @Composable
 fun AppNavHost() {
@@ -23,6 +22,7 @@ fun AppNavHost() {
     ) {
 
         composable(Routes.SplashScreen) {
+
             SplashScreen(navController)
         }
 
@@ -30,21 +30,11 @@ fun AppNavHost() {
             OnboardingScreen(navController)
         }
 
-        composable(Routes.HomeScreen) {
-            HomeScreen(navController)
+
+        composable(Routes.NewsNavigator) {
+            AppNavigator()
         }
 
-        // ✅ Search destination
-        composable(Routes.SearchScreen) {
-
-            // ✅ ViewModel MUST be inside composable
-            val viewModel: SearchViewModel = hiltViewModel()
-
-            SearchScreen(
-                state = viewModel.state,
-                event = viewModel::onEvent
-            )
-        }
     }
 }
 

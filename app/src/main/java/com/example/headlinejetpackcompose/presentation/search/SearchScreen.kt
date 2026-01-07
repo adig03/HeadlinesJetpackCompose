@@ -1,4 +1,4 @@
-package com.example.headlinejetpackcompose.presentation.Search
+package com.example.headlinejetpackcompose.presentation.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,19 +8,17 @@ import androidx.compose.foundation.layout.statusBarsPadding
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.headlinejetpackcompose.domain.model.Article
 import com.example.headlinejetpackcompose.presentation.Dimens.MediumPadding1
 import com.example.headlinejetpackcompose.presentation.common.ArticleList
 import com.example.headlinejetpackcompose.presentation.common.SelfMadeSearchBar
-import com.example.headlinejetpackcompose.presentation.home.HomeViewModel
 
 @Composable
 fun SearchScreen(
     state: SearchState,
-    event: (SearchEvent) -> Unit
+    event: (SearchEvent) -> Unit,
+    navigateToDetails : (Article) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +49,7 @@ fun SearchScreen(
             ArticleList(
                 articles = articles,
                 onClick = {
-                    // Navigate to details
+                    navigateToDetails(it)
                 }
             )
         }

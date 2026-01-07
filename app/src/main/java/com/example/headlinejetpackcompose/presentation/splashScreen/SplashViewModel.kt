@@ -1,4 +1,4 @@
-package com.example.headlinejetpackcompose
+package com.example.headlinejetpackcompose.presentation.splashScreen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +26,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             LocalUserManager.readAppEntry().collect { entry ->
                 startDestination = if (entry) {
-                    Routes.HomeScreen
+                    Routes.NewsNavigator
                 } else {
                     Routes.OnboardingScreen
 

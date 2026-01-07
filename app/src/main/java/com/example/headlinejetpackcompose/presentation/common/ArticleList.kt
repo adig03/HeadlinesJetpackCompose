@@ -62,24 +62,24 @@ fun ArticleList(
 @Composable
 fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
 
-    // Holds the current paging load state (refresh, prepend, append)
+
     val loadState = articles.loadState
 
-    // Check if any paging operation resulted in an error
+
     val error = when {
-        // Error during initial data load (first page)
+
         loadState.refresh is LoadState.Error ->
             loadState.refresh as LoadState.Error
 
-        // Error while loading data before the current list
+
         loadState.prepend is LoadState.Error ->
             loadState.prepend as LoadState.Error
 
-        // Error while loading the next page (pagination error)
+
         loadState.append is LoadState.Error ->
             loadState.append as LoadState.Error
 
-        // No errors found
+
         else -> null
     }
 

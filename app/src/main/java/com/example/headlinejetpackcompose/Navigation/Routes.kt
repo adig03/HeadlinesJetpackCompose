@@ -11,4 +11,11 @@ object Routes {
     const val OnboardingScreen = "ONBOARDING"
 
     const val SearchScreen = "SEARCH"
+
+    const val DetailsScreen = "DETAIL"
+
+    const val BookmarkScreen = "BOOKMARK"
+
+    const val NewsNavigator = "NEWS_NAVIGATOR"
+
 }

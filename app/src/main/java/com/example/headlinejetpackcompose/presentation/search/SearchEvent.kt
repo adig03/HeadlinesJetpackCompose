@@ -1,4 +1,4 @@
-package com.example.headlinejetpackcompose.presentation.Search
+package com.example.headlinejetpackcompose.presentation.search
 
 sealed class SearchEvent {
 

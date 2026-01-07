@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.parcelize)
 }
 hilt{
     enableAggregatingTask = true
@@ -79,6 +80,7 @@ dependencies {
     implementation(libs.androidx.paging.common)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.material3)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
@@ -109,4 +111,7 @@ dependencies {
     testImplementation(libs.coroutines.core)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.androidx.compose.material.icons.extended)
+
 }

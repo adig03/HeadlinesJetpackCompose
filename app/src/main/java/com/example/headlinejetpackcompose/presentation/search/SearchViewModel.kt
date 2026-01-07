@@ -1,4 +1,4 @@
-package com.example.headlinejetpackcompose.presentation.Search
+package com.example.headlinejetpackcompose.presentation.search
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

@@ -16,14 +16,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.headlinejetpackcompose.Navigation.Routes
 import com.example.headlinejetpackcompose.R
-import com.example.headlinejetpackcompose.SplashViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashScreen( navController: NavController) {
 
     var scale = remember {
         Animatable(0f)
@@ -43,8 +43,12 @@ fun SplashScreen(navController: NavHostController) {
             )
         )
         delay(3000L)
-        navController.navigate(Routes.SearchScreen)
 
+        navController.navigate(viewModel.startDestination){
+            popUpTo(Routes.SplashScreen) {
+                inclusive = true
+            }
+        }
 
     }
 

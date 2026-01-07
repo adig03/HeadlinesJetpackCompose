@@ -1,7 +1,6 @@
-package com.example.headlinejetpackcompose.presentation.Search
+package com.example.headlinejetpackcompose.presentation.search
 
 import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
 import com.example.headlinejetpackcompose.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
